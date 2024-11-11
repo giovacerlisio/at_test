@@ -8,17 +8,20 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Setup Python Virtual Environment') {
             steps {
-                // Usa pip3 per installare le dipendenze
-                sh 'pip3 install -r requirements.txt'
+                // Creare un ambiente virtuale
+                sh 'python3 -m venv venv'
+
+                // Attivare l'ambiente virtuale e installare le dipendenze
+                sh './venv/bin/pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Esegui i test con python3 e pytest
-                sh 'python3 -m pytest test.py --junitxml=results.xml'
+                // Eseguire i test all'interno dell'ambiente virtuale
+                sh './venv/bin/python -m pytest test.py --junitxml=results.xml'
             }
         }
     }
