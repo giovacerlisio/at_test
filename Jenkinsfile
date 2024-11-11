@@ -10,15 +10,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                // Installazione delle dipendenze, per esempio tramite pip
-                sh 'pip install -r requirements.txt'
+                // Usa pip3 per installare le dipendenze
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Esegui i test con pytest e salva i risultati in un formato compatibile con JUnit
-                sh 'pytest test.py --junitxml=results.xml'
+                // Esegui i test con python3 e pytest
+                sh 'python3 -m pytest test.py --junitxml=results.xml'
             }
         }
     }
